@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{personal.firstName}} {{personal.lastName}} - Resume</title>
+  {{> baseStyles}}
+  <style>
+    .rr-pro {
+      padding: 0;
+    }
+
+    .rr-pro .rr-header {
+      border: 1px solid #d9d9d9;
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: #fafafa;
+    }
+
+    .rr-pro .rr-name {
+      font-size: 26px;
+    }
+
+    .rr-pro .rr-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .rr-pro .rr-left {
+      border: 1px solid #d9d9d9;
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: #ffffff;
+    }
+
+    .rr-pro .rr-right {
+      border: 1px solid #d9d9d9;
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: #ffffff;
+    }
+
+    .rr-pro .rr-section {
+      margin-top: 12px;
+    }
+
+    .rr-pro .rr-section:first-child {
+      margin-top: 0;
+    }
+
+    .rr-pro .rr-section-title {
+      border-bottom-color: #cfcfcf;
+    }
+
+    @media print {
+      .rr-pro .rr-header,
+      .rr-pro .rr-left,
+      .rr-pro .rr-right {
+        background: #fff;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .rr-pro .rr-grid {
+        grid-template-columns: 0.38fr 0.62fr;
+        align-items: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="rr-page rr-pro">
+    <div class="rr-header">
+      <h1 class="rr-name">{{personal.firstName}} {{personal.lastName}}</h1>
+      {{#if personal.title}}
+        <div class="rr-title">{{personal.title}}</div>
+      {{/if}}
+      <div class="rr-contact">
+        {{#if personal.email}}{{personal.email}}{{/if}}
+        {{#if personal.phone}} · {{personal.phone}}{{/if}}
+        {{#if personal.address}} · {{personal.address}}{{/if}}
+        {{#if personal.linkedin}} · {{personal.linkedin}}{{/if}}
+        {{#if personal.website}} · {{personal.website}}{{/if}}
+      </div>
+    </div>
+
+    <div class="rr-grid">
+      <aside class="rr-left">
+        {{#if summary}}
+          <div class="rr-section">
+            <div class="rr-section-title">Summary</div>
+            <div class="rr-muted">{{summary}}</div>
+          </div>
+        {{/if}}
+
+        {{#if skills}}
+          {{#if skills.length}}
+            <div class="rr-section">
+              <div class="rr-section-title">Skills</div>
+              <div class="rr-tags">
+                {{#each skills}}
+                  <span class="rr-tag">{{this}}</span>
+                {{/each}}
+              </div>
+            </div>
+          {{/if}}
+        {{/if}}
+
+        {{#if certifications}}
+          {{#if certifications.length}}
+            <div class="rr-section">
+              <div class="rr-section-title">Certifications</div>
+              {{#each certifications}}
+                <div class="rr-item">
+                  <div class="rr-item-title">{{name}}</div>
+                  <div class="rr-item-sub">{{issuer}}{{#if year}} · {{year}}{{/if}}</div>
+                </div>
+              {{/each}}
+            </div>
+          {{/if}}
+        {{/if}}
+      </aside>
+
+      <section class="rr-right">
+        {{#if experience}}
+          {{#if experience.length}}
+            <div class="rr-section">
+              <div class="rr-section-title">Experience</div>
+              {{#each experience}}
+                <div class="rr-item">
+                  <div class="rr-item-title">{{jobTitle}} — {{employer}}</div>
+                  <div class="rr-item-sub">{{startDate}} – {{presentOrEnd current endDate}}</div>
+                  {{#if description}}
+                    <ul class="rr-bullets">
+                      {{#each (splitLines description)}}
+                        <li>{{this}}</li>
+                      {{/each}}
+                    </ul>
+                  {{/if}}
+                </div>
+              {{/each}}
+            </div>
+          {{/if}}
+        {{/if}}
+
+        {{#if projects}}
+          {{#if projects.length}}
+            <div class="rr-section">
+              <div class="rr-section-title">Projects</div>
+              {{#each projects}}
+                <div class="rr-item">
+                  <div class="rr-item-title">{{name}}</div>
+                  {{#if link}}
+                    <div class="rr-item-sub">{{link}}</div>
+                  {{/if}}
+                  <div class="rr-muted" style="margin-top:4px;">{{description}}</div>
+                </div>
+              {{/each}}
+            </div>
+          {{/if}}
+        {{/if}}
+
+        {{#if education}}
+          {{#if education.length}}
+            <div class="rr-section">
+              <div class="rr-section-title">Education</div>
+              {{#each education}}
+                <div class="rr-item">
+                  <div class="rr-item-title">{{degree}}{{#if fieldOfStudy}} — {{fieldOfStudy}}{{/if}}</div>
+                  <div class="rr-item-sub">{{school}} · {{startDate}}{{#if endDate}} – {{endDate}}{{/if}}</div>
+                </div>
+              {{/each}}
+            </div>
+          {{/if}}
+        {{/if}}
+      </section>
+    </div>
+  </div>
+</body>
+</html>

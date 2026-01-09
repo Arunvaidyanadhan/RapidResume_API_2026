@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  {{> baseStyles}}
+  <style>
+    .rr-simple {
+      padding: 0;
+    }
+
+    .rr-simple .rr-section-title {
+      border-bottom: 1px solid #d9d9d9;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="rr-page rr-simple">
+    <div class="rr-header">
+      <h1 class="rr-name">{{personal.firstName}} {{personal.lastName}}</h1>
+      {{#if personal.title}}
+        <div class="rr-title">{{personal.title}}</div>
+      {{/if}}
+      <div class="rr-contact">
+        {{#if personal.email}}{{personal.email}}{{/if}}
+        {{#if personal.phone}} · {{personal.phone}}{{/if}}
+        {{#if personal.address}} · {{personal.address}}{{/if}}
+        {{#if personal.linkedin}} · {{personal.linkedin}}{{/if}}
+      </div>
+    </div>
+
+    {{#if summary}}
+      <div class="rr-section">
+        <div class="rr-section-title">Summary</div>
+        <p class="rr-muted">{{summary}}</p>
+      </div>
+    {{/if}}
+
+    {{#if skills}}
+      {{#if skills.length}}
+        <div class="rr-section">
+          <div class="rr-section-title">Skills</div>
+          <div class="rr-tags">
+            {{#each skills}}
+              <span class="rr-tag">{{this}}</span>
+            {{/each}}
+          </div>
+        </div>
+      {{/if}}
+    {{/if}}
+
+    {{#if experience}}
+      {{#if experience.length}}
+        <div class="rr-section">
+          <div class="rr-section-title">Experience</div>
+          {{#each experience}}
+            <div class="rr-item">
+              <p class="rr-item-title">{{jobTitle}} — {{employer}}</p>
+              <p class="rr-item-sub">{{startDate}} – {{presentOrEnd current endDate}}</p>
+              {{#if description}}
+                <ul class="rr-bullets">
+                  {{#each (splitLines description)}}
+                    <li>{{this}}</li>
+                  {{/each}}
+                </ul>
+              {{/if}}
+            </div>
+          {{/each}}
+        </div>
+      {{/if}}
+    {{/if}}
+
+    {{#if education}}
+      {{#if education.length}}
+        <div class="rr-section">
+          <div class="rr-section-title">Education</div>
+          {{#each education}}
+            <div class="rr-item">
+              <p class="rr-item-title">{{degree}}{{#if fieldOfStudy}} — {{fieldOfStudy}}{{/if}}</p>
+              <p class="rr-item-sub">{{school}} · {{startDate}}{{#if endDate}} – {{endDate}}{{/if}}</p>
+            </div>
+          {{/each}}
+        </div>
+      {{/if}}
+    {{/if}}
+  </div>
+</body>
+</html>

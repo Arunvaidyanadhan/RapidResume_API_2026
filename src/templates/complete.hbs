@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <title>
+    {{personal.firstName}} {{personal.lastName}} - Resume
+  </title>
+
+  {{> baseStyles}}
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      color: #222;
+    }
+
+    h1, h2, h3 {
+      margin-bottom: 0.2rem;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .section {
+      margin-top: 2rem;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 0.3rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: #dc3545;
+      color: white;
+      padding: 0.3rem 0.7rem;
+      border-radius: 4px;
+      margin-right: 0.3rem;
+      margin-bottom: 0.3rem;
+      font-size: 0.85rem;
+    }
+
+    ul {
+      padding-left: 1.2rem;
+    }
+
+    li {
+      margin-bottom: 0.3rem;
+    }
+
+    .item {
+      margin-bottom: 1rem;
+    }
+
+    small {
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <h1 class="text-danger">
+    {{personal.firstName}} {{personal.lastName}}
+  </h1>
+
+  {{#if personal.title}}
+    <h3>{{personal.title}}</h3>
+  {{/if}}
+
+  <p>
+    {{personal.email}} | {{personal.phone}}
+    {{#if personal.linkedin}}
+      | <a href="{{personal.linkedin}}">LinkedIn</a>
+    {{/if}}
+  </p>
+
+  <!-- ================= SUMMARY ================= -->
+  {{#if summary}}
+    <div class="section">
+      <div class="section-title">Summary</div>
+      <p>{{summary}}</p>
+    </div>
+  {{/if}}
+
+  <!-- ================= SKILLS ================= -->
+  {{#if skills}}
+    {{#if skills.length}}
+      <div class="section">
+        <div class="section-title">Skills</div>
+        {{#each skills}}
+          <span class="badge">{{this}}</span>
+        {{/each}}
+      </div>
+    {{/if}}
+  {{/if}}
+
+  <!-- ================= EXPERIENCE ================= -->
+  {{#if experience}}
+    {{#if experience.length}}
+      <div class="section">
+        <div class="section-title">Work Experience</div>
+
+        {{#each experience}}
+          <div class="item">
+            <h3>{{jobTitle}} at {{employer}}</h3>
+
+            <small>
+              {{startDate}} – {{presentOrEnd current endDate}}
+            </small>
+
+            {{#if description}}
+              <ul>
+                {{#each (splitLines description)}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            {{/if}}
+          </div>
+        {{/each}}
+
+      </div>
+    {{/if}}
+  {{/if}}
+
+  <!-- ================= PROJECTS ================= -->
+  {{#if projects}}
+    {{#if projects.length}}
+      <div class="section">
+        <div class="section-title">Projects</div>
+
+        {{#each projects}}
+          <div class="item">
+            <h3>{{name}}</h3>
+
+            {{#if link}}
+              <p>
+                <a href="{{link}}">{{link}}</a>
+              </p>
+            {{/if}}
+
+            <p>{{description}}</p>
+          </div>
+        {{/each}}
+
+      </div>
+    {{/if}}
+  {{/if}}
+
+  <!-- ================= EDUCATION ================= -->
+  {{#if education}}
+    {{#if education.length}}
+      <div class="section">
+        <div class="section-title">Education</div>
+
+        {{#each education}}
+          <div class="item">
+            <h3>{{degree}} {{fieldOfStudy}}</h3>
+            <p>
+              {{school}} |
+              {{startDate}} – {{presentOrEnd false endDate}}
+            </p>
+          </div>
+        {{/each}}
+
+      </div>
+    {{/if}}
+  {{/if}}
+
+  <!-- ================= CERTIFICATIONS ================= -->
+  {{#if certifications}}
+    {{#if certifications.length}}
+      <div class="section">
+        <div class="section-title">Certifications</div>
+
+        <ul>
+          {{#each certifications}}
+            <li>
+              {{name}} - {{issuer}} ({{year}})
+            </li>
+          {{/each}}
+        </ul>
+
+      </div>
+    {{/if}}
+  {{/if}}
+
+</body>
+</html>

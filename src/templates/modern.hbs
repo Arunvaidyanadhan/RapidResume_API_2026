@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{personal.firstName}} {{personal.lastName}} - Resume</title>
+  {{> baseStyles}}
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      color: #333;
+    }
+    h1 {
+      margin-bottom: 0;
+      color: #2c3e50;
+    }
+    h2 {
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 5px;
+      margin-top: 25px;
+    }
+    .section {
+      margin-top: 20px;
+    }
+    .contact-info {
+      color: #666;
+      margin-bottom: 20px;
+    }
+    .experience-item, .education-item, .project-item {
+      margin-bottom: 15px;
+    }
+    .date-range {
+      color: #666;
+      font-style: italic;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>{{personal.firstName}} {{personal.lastName}}</h1>
+{{#if personal.title}}
+  <p><strong>{{personal.title}}</strong></p>
+{{/if}}
+<div class="contact-info">
+  {{personal.email}} | {{personal.phone}}
+  {{#if personal.linkedin}}
+    | <a href="{{personal.linkedin}}">LinkedIn</a>
+  {{/if}}
+</div>
+
+{{#if summary}}
+  <div class="section">
+    <h2>Summary</h2>
+    <p>{{summary}}</p>
+  </div>
+{{/if}}
+
+{{#if experience}}
+  {{#if experience.length}}
+    <div class="section">
+      <h2>Work Experience</h2>
+      {{#each experience}}
+        <div class="experience-item">
+          <p><strong>{{jobTitle}}</strong> at {{employer}}</p>
+          <p class="date-range">{{startDate}} – {{presentOrEnd current endDate}}</p>
+          {{#if description}}
+            <p>{{description}}</p>
+          {{/if}}
+        </div>
+      {{/each}}
+    </div>
+  {{/if}}
+{{/if}}
+
+{{#if education}}
+  {{#if education.length}}
+    <div class="section">
+      <h2>Education</h2>
+      {{#each education}}
+        <div class="education-item">
+          <p><strong>{{degree}}</strong>{{#if fieldOfStudy}}, {{fieldOfStudy}}{{/if}}</p>
+          <p>{{school}} | {{startDate}}{{#if endDate}} – {{endDate}}{{/if}}</p>
+        </div>
+      {{/each}}
+    </div>
+  {{/if}}
+{{/if}}
+
+{{#if skills}}
+  {{#if skills.length}}
+    <div class="section">
+      <h2>Skills</h2>
+      <ul>
+        {{#each skills}}
+          <li>{{this}}</li>
+        {{/each}}
+      </ul>
+    </div>
+  {{/if}}
+{{/if}}
+
+{{#if projects}}
+  {{#if projects.length}}
+    <div class="section">
+      <h2>Projects</h2>
+      {{#each projects}}
+        <div class="project-item">
+          <p><strong>{{name}}</strong>{{#if link}} - <a href="{{link}}">View Project</a>{{/if}}</p>
+          <p>{{description}}</p>
+        </div>
+      {{/each}}
+    </div>
+  {{/if}}
+{{/if}}
+
+{{#if certifications}}
+  {{#if certifications.length}}
+    <div class="section">
+      <h2>Certifications</h2>
+      <ul>
+        {{#each certifications}}
+          <li><strong>{{name}}</strong>{{#if issuer}} - {{issuer}}{{/if}}{{#if year}} ({{year}}){{/if}}</li>
+        {{/each}}
+      </ul>
+    </div>
+  {{/if}}
+{{/if}}
+
+</body>
+</html>
