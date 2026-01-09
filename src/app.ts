@@ -17,7 +17,30 @@ export function buildApp() {
   engine: { handlebars },
   root: path.join(process.cwd(), "src", "templates"),
 });
-  app.register(cors, { origin: true });
+app.register(cors, {
+  origin: (origin, cb) => {
+    const allowedOrigins = [
+      "https://rapidresume.in",
+      "https://www.rapidresume.in",
+      "http://localhost:3000",
+      "http://localhost:5173"
+    ];
+
+    // Allow server-to-server or curl requests (no origin)
+    if (!origin) {
+      cb(null, true);
+      return;
+    }
+
+    if (allowedOrigins.includes(origin)) {
+      cb(null, true);
+    } else {
+      cb(new Error("Not allowed by CORS"), false);
+    }
+  },
+  methods: ["GET", "POST"],
+});
+
   app.register(rateLimit, { max: 50, timeWindow: "1 minute" });
 app.register(previewRoutes);
   // Serve static preview images

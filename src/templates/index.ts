@@ -8,7 +8,7 @@ export const TEMPLATE_FILES = {
   "template-7": "template-7.hbs",
   "template-8": "template-8.hbs",
   "template-9": "template-9.hbs",
-  complete: "complete.hbs",
+  "complete": "complete.hbs",
   "ats-minimal": "ats-minimal.hbs",
   "modern-pro": "modern-pro.hbs",
   "creative-print": "creative-print.hbs",
