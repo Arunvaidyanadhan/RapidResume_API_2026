@@ -1,220 +1,211 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>{{personal.firstName}} {{personal.lastName}} - Resume</title>
+  <meta charset="UTF-8" />
   {{> baseStyles}}
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-      color: #333;
+      font-family: Arial, sans-serif;
     }
 
-    .resume-wrapper {
-      max-width: 850px;
-      margin: 2rem auto;
-      background-color: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-
-    .header {
-      background-color: #4e6ef2;
-      color: white;
-      padding: 2rem;
+    .rr-layout {
       display: flex;
-      align-items: center;
-      gap: 1.5rem;
+      min-height: 100vh;
     }
 
-    .header img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
+    /* LEFT SIDEBAR */
+    .rr-sidebar {
+      width: 32%;
+      background: #3b3b3b;
+      color: #fff;
+      padding: 30px 25px;
+    }
+
+    .rr-photo {
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
-      border: 3px solid white;
-      background-color: #eee;
+      margin-bottom: 20px;
+      object-fit: cover;
     }
 
-    .header h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
-
-    .header .contact {
-      margin-top: 0.3rem;
-      font-size: 0.9rem;
-    }
-
-    .section {
-      padding: 1.5rem 2rem;
-      border-bottom: 1px solid #ddd;
-    }
-
-    .section-title {
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin-bottom: 0.8rem;
-      color: #4e6ef2;
+    .rr-side-title {
+      font-size: 14px;
+      font-weight: bold;
+      margin-top: 25px;
+      margin-bottom: 10px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
-    .skills-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+    .rr-side-text {
+      font-size: 12px;
+      line-height: 1.5;
     }
 
-    .skills-bar .skill {
-      background-color: #4e6ef2;
-      color: white;
-      padding: 0.3rem 0.6rem;
-      border-radius: 5px;
-      font-size: 0.85rem;
+    .rr-list {
+      padding-left: 15px;
+      font-size: 12px;
     }
 
-    .item h5 {
-      margin: 0;
-      font-size: 1rem;
+    /* RIGHT CONTENT */
+    .rr-main {
+      width: 68%;
+      padding: 30px;
     }
 
-    .item small {
-      color: #666;
+    .rr-name {
+      font-size: 32px;
+      font-weight: bold;
     }
 
-    ul {
-      padding-left: 1.2rem;
+    .rr-title {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 20px;
     }
 
-    li {
-      margin-bottom: 0.3rem;
+    .rr-section {
+      margin-top: 30px;
     }
 
-    a {
-      color: #4e6ef2;
-      text-decoration: none;
+    .rr-section-title {
+      font-size: 14px;
+      font-weight: bold;
+      border-bottom: 1px solid #000;
+      padding-bottom: 4px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
     }
 
-    a:hover {
-      text-decoration: underline;
+    .rr-item {
+      margin-bottom: 15px;
     }
 
-    @media (max-width: 576px) {
-      .header {
-        flex-direction: column;
-        text-align: center;
-      }
+    .rr-item-title {
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .rr-muted {
+      font-size: 12px;
+      color: #555;
+    }
+
+    .rr-skill-bar {
+      height: 6px;
+      background: #ddd;
+      margin-bottom: 8px;
+    }
+
+    .rr-skill-fill {
+      height: 100%;
+      background: #333;
     }
   </style>
 </head>
+
 <body>
+  <div class="rr-layout">
 
-<div class="resume-wrapper">
+    <!-- LEFT -->
+    <aside class="rr-sidebar">
 
-  <!-- Header -->
-  <div class="header">
-    {{#if personal.profileImage}}
-      <img src="{{personal.profileImage}}" alt="Profile">
-    {{else}}
-      <div style="width:100px;height:100px;background:#ccc;border-radius:50%;"></div>
-    {{/if}}
-    <div>
-      <h1>{{personal.firstName}} {{personal.lastName}}</h1>
-      <div class="contact">
-        {{personal.email}} | {{personal.phone}}
-        {{#if personal.linkedin}} | <a href="{{personal.linkedin}}" target="_blank">LinkedIn</a>{{/if}}
-      </div>
-    </div>
+      {{#if personal.photo}}
+        <img src="{{personal.photo}}" class="rr-photo" />
+      {{/if}}
+
+     {{#if summary.text}}
+  <div class="rr-side-text">
+    {{summary.text}}
   </div>
+{{/if}}
 
-  <!-- Summary -->
-  {{#if summary}}
-  <div class="section">
-    <div class="section-title">Summary</div>
-    <p>{{summary}}</p>
-  </div>
-  {{/if}}
 
-  <!-- Skills -->
-  {{#if skills.length}}
-  <div class="section">
-    <div class="section-title">Skills</div>
-    <div class="skills-bar">
-      {{#each skills}}
-        <div class="skill">{{this}}</div>
-      {{/each}}
-    </div>
-  </div>
-  {{/if}}
+      {{#if links.length}}
+        <div class="rr-side-title">Links</div>
+        {{#each links}}
+          <div class="rr-side-text">{{label}}: {{url}}</div>
+        {{/each}}
+      {{/if}}
 
-  <!-- Experience -->
-  {{#if experience.length}}
-  <div class="section">
-    <div class="section-title">Experience</div>
-    {{#each experience}}
-      <div class="item mb-3">
-        <h5>{{jobTitle}} at {{employer}}</h5>
-        <small>{{startDate}} – {{presentOrEnd current endDate}}</small>
-        {{#if description}}
-        <ul>
-          {{#each (splitLines description)}}
-            <li>{{this}}</li>
+      {{#if references.length}}
+        <div class="rr-side-title">Reference</div>
+        {{#each references}}
+          <div class="rr-side-text">
+            <strong>{{name}}</strong><br />
+            {{designation}}<br />
+            {{contact}}
+          </div>
+        {{/each}}
+      {{/if}}
+
+{{#if hobbies.length}}
+  <ul class="rr-list">
+    {{#each hobbies}}
+      <li>{{name}}</li>
+    {{/each}}
+  </ul>
+{{/if}}
+
+
+    </aside>
+
+    <!-- RIGHT -->
+    <main class="rr-main">
+
+      <div class="rr-name">{{personal.firstName}} {{personal.lastName}}</div>
+      {{#if personal.title}}
+        <div class="rr-title">{{personal.title}}</div>
+      {{/if}}
+
+      {{#if experience.length}}
+        <div class="rr-section">
+          <div class="rr-section-title">Work Experience</div>
+          {{#each experience}}
+            <div class="rr-item">
+              <div class="rr-item-title">{{role}} – {{company}}</div>
+              <div class="rr-muted">{{location}} | {{start}} - {{end}}</div>
+              <ul class="rr-list">
+                {{#each responsibilities}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
           {{/each}}
-        </ul>
-        {{/if}}
-      </div>
-    {{/each}}
+        </div>
+      {{/if}}
+
+      {{#if education.length}}
+        <div class="rr-section">
+          <div class="rr-section-title">Education</div>
+          {{#each education}}
+            <div class="rr-item">
+              <div class="rr-item-title">{{degree}}</div>
+              <div class="rr-muted">{{institution}} | {{year}}</div>
+            </div>
+          {{/each}}
+        </div>
+      {{/if}}
+
+      {{#if skills.length}}
+        <div class="rr-section">
+          <div class="rr-section-title">Skills</div>
+          {{#each skills}}
+            <div class="rr-muted">{{name}}</div>
+            <div class="rr-skill-bar">
+              <div class="rr-skill-fill" style="width: {{level}}%;"></div>
+            </div>
+          {{/each}}
+        </div>
+      {{/if}}
+
+      {{#each languages}}
+  <div class="rr-muted">{{name}}</div>
+{{/each}}
+
+
+    </main>
   </div>
-  {{/if}}
-
-  <!-- Projects -->
-  {{#if projects.length}}
-  <div class="section">
-    <div class="section-title">Projects</div>
-    {{#each projects}}
-      <div class="item mb-3">
-        <h5>{{name}}</h5>
-        {{#if link}}
-          <p><a href="{{link}}" target="_blank">{{link}}</a></p>
-        {{/if}}
-        <p>{{description}}</p>
-      </div>
-    {{/each}}
-  </div>
-  {{/if}}
-
-  <!-- Education -->
-  {{#if education.length}}
-  <div class="section">
-    <div class="section-title">Education</div>
-    {{#each education}}
-      <div class="item mb-2">
-        <h5>{{degree}} - {{fieldOfStudy}}</h5>
-        <p>{{school}} | {{startDate}} – {{endDate}}</p>
-      </div>
-    {{/each}}
-  </div>
-  {{/if}}
-
-  <!-- Certifications -->
-  {{#if certifications.length}}
-  <div class="section">
-    <div class="section-title">Certifications</div>
-    <ul>
-      {{#each certifications}}
-        <li>{{name}} - {{issuer}} ({{year}})</li>
-      {{/each}}
-    </ul>
-  </div>
-  {{/if}}
-
-</div>
-
 </body>
 </html>

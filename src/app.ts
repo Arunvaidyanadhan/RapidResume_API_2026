@@ -19,10 +19,16 @@ export function buildApp() {
 });
 app.register(cors, {
   origin: (origin, cb) => {
+    if (process.env.NODE_ENV !== 'production') {
+      cb(null, true);
+      return;
+    }
+
     const allowedOrigins = [
       "https://rapidresume.in",
       "https://www.rapidresume.in",
       "http://localhost:3000",
+      "http://127.0.0.1:3000",
       "http://localhost:5173"
     ];
 
