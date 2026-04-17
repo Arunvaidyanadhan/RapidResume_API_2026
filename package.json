@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "nodemon --exec ts-node src/server.ts",
     "start": "node dist/server.js",
-    "build": "tsc",
+    "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "generate-previews": "ts-node src/utils/generatePreviews.ts"
+    "generate-previews": "npx ts-node src/utils/generatePreviews.ts"
   },
   "keywords": [],
   "author": "",
