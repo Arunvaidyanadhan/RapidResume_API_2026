@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{fullName}} - Resume</title>
+  {{> baseStyles}}
+  <style>
+    body { background: #eef2f7; }
+    .sheet { background: #fff; }
+    .hero {
+      background: #1f2937;
+      color: #fff;
+      padding: 28px;
+    }
+    .hero .rr-name {
+      color: #fff;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+    .hero .rr-contact {
+      color: rgba(255, 255, 255, 0.84);
+    }
+    .content {
+      padding: 26px 28px 12px;
+    }
+    .rr-section-title {
+      color: #1f2937;
+      border-bottom: 1px solid #cbd5e1;
+    }
+    .summary {
+      background: #f8fafc;
+      padding: 14px 16px;
+      border-radius: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <header class="hero">
+      <h1 class="rr-name">{{fullName}}</h1>
+      {{#if profile.headline}}<p class="rr-title" style="color:#dbeafe;">{{profile.headline}}</p>{{/if}}
+      <div class="rr-contact">{{contactLine}}</div>
+      {{#if links.length}}<div class="rr-contact">{{#each links}}{{this}}{{#unless @last}} | {{/unless}}{{/each}}</div>{{/if}}
+    </header>
+
+    <main class="content">
+      {{#if profile.summary}}
+        <section class="rr-section">
+          <h2 class="rr-section-title">Executive Summary</h2>
+          <div class="summary">{{profile.summary}}</div>
+        </section>
+      {{/if}}
+
+      {{#if experience.length}}
+        <section class="rr-section">
+          <h2 class="rr-section-title">Leadership Experience</h2>
+          {{#each experience}}
+            <article class="rr-item">
+              <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;">
+                <div>
+                  <div class="rr-item-title">{{role}}</div>
+                  <div class="rr-item-sub">{{company}}{{#if location}} | {{location}}{{/if}}</div>
+                </div>
+                <div class="rr-muted">{{dateRange}}</div>
+              </div>
+              {{#if highlights.length}}<ul class="rr-bullets">{{#each highlights}}<li>{{this}}</li>{{/each}}</ul>{{/if}}
+            </article>
+          {{/each}}
+        </section>
+      {{/if}}
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+        {{#if education.length}}
+          <section class="rr-section">
+            <h2 class="rr-section-title">Education</h2>
+            {{#each education}}
+              <article class="rr-item">
+                <div class="rr-item-title">{{degree}}</div>
+                <div class="rr-item-sub">{{institution}}{{#if location}} | {{location}}{{/if}}</div>
+                <div class="rr-muted">{{dateRange}}</div>
+                {{#if details}}<div class="rr-item-sub">{{details}}</div>{{/if}}
+              </article>
+            {{/each}}
+          </section>
+        {{/if}}
+
+        <section class="rr-section">
+          {{#if skills.length}}
+            <h2 class="rr-section-title">Core Skills</h2>
+            <div class="rr-tags" style="margin-bottom:14px;">{{#each skills}}<span class="rr-tag">{{name}}</span>{{/each}}</div>
+          {{/if}}
+
+          {{#if certifications.length}}
+            <h2 class="rr-section-title">Certifications</h2>
+            {{#each certifications}}<div class="rr-item-sub"><strong>{{name}}</strong>{{#if issuer}} · {{issuer}}{{/if}}{{#if year}} · {{year}}{{/if}}</div>{{/each}}
+          {{/if}}
+
+          {{#if languages.length}}
+            <h2 class="rr-section-title">Languages</h2>
+            {{#each languages}}<div class="rr-item-sub"><strong>{{name}}</strong>{{#if proficiency}} · {{proficiency}}{{/if}}</div>{{/each}}
+          {{/if}}
+        </section>
+      </div>
+
+      {{#if projects.length}}
+        <section class="rr-section">
+          <h2 class="rr-section-title">Projects</h2>
+          {{#each projects}}
+            <article class="rr-item">
+              <div class="rr-item-title">{{name}}</div>
+              {{#if role}}<div class="rr-item-sub">{{role}}</div>{{/if}}
+              {{#if summary}}<div class="rr-item-sub">{{summary}}</div>{{/if}}
+            </article>
+          {{/each}}
+        </section>
+      {{/if}}
+    </main>
+  </div>
+</body>
+</html>

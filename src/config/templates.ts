@@ -16,57 +16,25 @@ export interface TemplateConfig {
 }
 
 const TEMPLATE_METADATA: Record<TemplateId, { name: string; description: string }> = {
+  classic: {
+    name: "Classic",
+    description: "ATS-safe single-column design with clear hierarchy",
+  },
   modern: {
     name: "Modern",
-    description: "Clean and professional design with modern aesthetics",
+    description: "Balanced two-column professional design with strong scanning",
   },
-  "template-2": {
-    name: "Classic",
-    description: "Traditional resume layout with timeless appeal",
-  },
-  "template-3": {
+  executive: {
     name: "Executive",
-    description: "Bold, high-contrast layout suited for leadership roles",
+    description: "Leadership-focused layout with premium spacing and bold sectioning",
   },
-  "template-4": {
-    name: "Sidebar",
-    description: "Two-column layout with a clean sidebar for quick scanning",
+  minimal: {
+    name: "Minimal",
+    description: "Editorial and quiet layout that keeps focus on content",
   },
-  "template-5": {
-    name: "Soft Minimal",
-    description: "Simple, elegant design with minimal color and strong readability",
-  },
-  "template-6": {
-    name: "Professional",
-    description: "ATS-friendly format optimized for applicant tracking systems",
-  },
-  "template-7": {
-    name: "Simple ATS",
-    description: "Ultra-clean single-column template for fast scanning",
-  },
-  "template-8": {
-    name: "Fresher Focus",
-    description: "Education + projects first. Great for students and freshers",
-  },
-  "template-9": {
-    name: "Project Spotlight",
-    description: "Project-first layout for portfolios and hands-on roles",
-  },
-  complete: {
-    name: "Complete",
-    description: "Comprehensive layout with all sections included",
-  },
-  "ats-minimal": {
-    name: "Minimal ATS",
-    description: "Strict ATS-safe typography and spacing with clean section rules",
-  },
-  "modern-pro": {
-    name: "Modern Pro",
-    description: "Modern professional look with balanced whitespace and hierarchy",
-  },
-  "creative-print": {
-    name: "Creative Print",
-    description: "Tasteful creative styling that remains printable and professional",
+  creative: {
+    name: "Creative",
+    description: "Distinctive but professional layout with tasteful visual contrast",
   },
 };
 

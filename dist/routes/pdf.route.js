@@ -36,32 +36,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.pdfRoutes = pdfRoutes;
 const pdf_service_1 = require("../services/pdf.service");
 const templates_1 = require("../config/templates");
-function validateResumeData(data) {
-    if (!data || typeof data !== "object") {
-        return { valid: false, error: "Invalid request body" };
-    }
-    if (!data.personal || typeof data.personal !== "object") {
-        return { valid: false, error: "Personal details are required" };
-    }
-    if (!data.personal.firstName || typeof data.personal.firstName !== "string" || data.personal.firstName.trim() === "") {
-        return { valid: false, error: "First name is required" };
-    }
-    if (!data.personal.lastName || typeof data.personal.lastName !== "string" || data.personal.lastName.trim() === "") {
-        return { valid: false, error: "Last name is required" };
-    }
-    if (!data.personal.email || typeof data.personal.email !== "string" || data.personal.email.trim() === "") {
-        return { valid: false, error: "Email is required" };
-    }
-    if (!data.personal.phone || typeof data.personal.phone !== "string" || data.personal.phone.trim() === "") {
-        return { valid: false, error: "Phone number is required" };
-    }
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.personal.email)) {
-        return { valid: false, error: "Invalid email format" };
-    }
-    return { valid: true };
-}
+const resumeSchema_1 = require("../utils/resumeSchema");
 async function pdfRoutes(app) {
     app.post("/generate-pdf/:template", async (req, reply) => {
         try {
@@ -83,7 +58,8 @@ async function pdfRoutes(app) {
                 });
             }
             // Validate request body
-            const validation = validateResumeData(req.body);
+            const normalizedInput = (0, resumeSchema_1.normalizeResumeInput)(req.body);
+            const validation = (0, resumeSchema_1.validateResumeInput)(normalizedInput);
             if (!validation.valid) {
                 return reply.status(400).send({
                     error: "Validation failed",
@@ -91,7 +67,7 @@ async function pdfRoutes(app) {
                 });
             }
             // Generate PDF using template file name
-            const pdf = await (0, pdf_service_1.createResumePdf)(req.body, templateConfig.templateFile);
+            const pdf = await (0, pdf_service_1.createResumePdf)(normalizedInput, templateConfig.templateFile);
             reply
                 .header("Content-Type", "application/pdf")
                 .header("Content-Disposition", "attachment; filename=resume.pdf")

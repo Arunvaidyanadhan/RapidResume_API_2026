@@ -10,6 +10,7 @@ const handlebars_1 = __importDefault(require("handlebars"));
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const puppeteer_1 = require("../utils/puppeteer");
+const resumeSchema_1 = require("../utils/resumeSchema");
 async function createResumePdf(data, templateFileName) {
     // templateFileName is now the actual .hbs filename (e.g., "modern.hbs")
     // Resolve template path from the repo source so it works in both ts-node and dist runs
@@ -21,8 +22,9 @@ async function createResumePdf(data, templateFileName) {
     // Read and compile template
     const source = fs_1.default.readFileSync(templatePath, "utf8");
     const template = handlebars_1.default.compile(source);
+    const viewModel = (0, resumeSchema_1.createResumeViewModel)(data);
     // Render template with data
-    const html = template(data);
+    const html = template(viewModel);
     // Generate PDF
     return (0, puppeteer_1.generatePdf)(html);
 }

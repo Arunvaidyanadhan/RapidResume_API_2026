@@ -1,46 +1,13 @@
 import { FastifyInstance } from "fastify";
 import { createResumePdf } from "../services/pdf.service";
-import { ResumeData } from "../types/resume";
+import { ResumeInput } from "../types/resume";
 import { getTemplateById, isValidTemplateId } from "../config/templates";
-
-function validateResumeData(data: any): { valid: boolean; error?: string } {
-  if (!data || typeof data !== "object") {
-    return { valid: false, error: "Invalid request body" };
-  }
-
-  if (!data.personal || typeof data.personal !== "object") {
-    return { valid: false, error: "Personal details are required" };
-  }
-
-  if (!data.personal.firstName || typeof data.personal.firstName !== "string" || data.personal.firstName.trim() === "") {
-    return { valid: false, error: "First name is required" };
-  }
-
-  if (!data.personal.lastName || typeof data.personal.lastName !== "string" || data.personal.lastName.trim() === "") {
-    return { valid: false, error: "Last name is required" };
-  }
-
-  if (!data.personal.email || typeof data.personal.email !== "string" || data.personal.email.trim() === "") {
-    return { valid: false, error: "Email is required" };
-  }
-
-  if (!data.personal.phone || typeof data.personal.phone !== "string" || data.personal.phone.trim() === "") {
-    return { valid: false, error: "Phone number is required" };
-  }
-
-  // Validate email format
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(data.personal.email)) {
-    return { valid: false, error: "Invalid email format" };
-  }
-
-  return { valid: true };
-}
+import { normalizeResumeInput, validateResumeInput } from "../utils/resumeSchema";
 
 export async function pdfRoutes(app: FastifyInstance) {
   app.post<{
     Params: { template: string };
-    Body: ResumeData;
+    Body: ResumeInput;
   }>("/generate-pdf/:template", async (req, reply) => {
     try {
       const templateId = req.params.template;
@@ -64,7 +31,8 @@ export async function pdfRoutes(app: FastifyInstance) {
       }
 
       // Validate request body
-      const validation = validateResumeData(req.body);
+      const normalizedInput = normalizeResumeInput(req.body);
+      const validation = validateResumeInput(normalizedInput);
       if (!validation.valid) {
         return reply.status(400).send({
           error: "Validation failed",
@@ -73,7 +41,7 @@ export async function pdfRoutes(app: FastifyInstance) {
       }
 
       // Generate PDF using template file name
-      const pdf = await createResumePdf(req.body, templateConfig.templateFile);
+      const pdf = await createResumePdf(normalizedInput, templateConfig.templateFile);
 
       reply
         .header("Content-Type", "application/pdf")

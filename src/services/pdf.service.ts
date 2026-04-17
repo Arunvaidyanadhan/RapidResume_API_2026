@@ -3,11 +3,12 @@ import "../utils/hbs.partials";
 import Handlebars from "handlebars";
 import fs from "fs";
 import path from "path";
-import { ResumeData } from "../types/resume";
+import { ResumeInput } from "../types/resume";
 import { generatePdf } from "../utils/puppeteer";
+import { createResumeViewModel } from "../utils/resumeSchema";
 
 export async function createResumePdf(
-  data: ResumeData,
+  data: ResumeInput,
   templateFileName: string
 ): Promise<Buffer> {
   // templateFileName is now the actual .hbs filename (e.g., "modern.hbs")
@@ -23,9 +24,10 @@ export async function createResumePdf(
   // Read and compile template
   const source = fs.readFileSync(templatePath, "utf8");
   const template = Handlebars.compile(source);
+  const viewModel = createResumeViewModel(data);
   
   // Render template with data
-  const html = template(data);
+  const html = template(viewModel);
 
   // Generate PDF
   return generatePdf(html);
