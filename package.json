@@ -2,7 +2,7 @@
   "name": "resume-pdf-service",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/server.js",
   "scripts": {
     "dev": "nodemon --exec ts-node src/server.ts",
     "start": "node dist/server.js",
