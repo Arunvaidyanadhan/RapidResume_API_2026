@@ -1,9 +1,9 @@
 export const TEMPLATE_FILES = {
-  classic: "classic.hbs",
-  modern: "modern-pro.hbs",
-  executive: "executive.hbs",
-  minimal: "minimal.hbs",
-  creative: "creative.hbs",
+  "ats-master": "ats-master.hbs",
+  "professional": "professional.hbs",
+  "executive": "executive.hbs",
+  "academic": "academic.hbs",
+  "modern-compact": "modern-compact.hbs",
 } as const;
 
 export type TemplateId = keyof typeof TEMPLATE_FILES;

@@ -8,89 +8,102 @@
     body {
       background: #ffffff;
       color: #1a1a1a;
-      font-family: "Segoe UI", Tahoma, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
     .sheet {
       background: #ffffff;
-      padding: 44px;
+      padding: 32px;
     }
     .rr-header {
       margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 4px solid #1a3a52;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #3b82f6;
     }
     .rr-name {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 700;
       margin: 0;
-      color: #1a3a52;
+      color: #1a1a1a;
       letter-spacing: -0.5px;
     }
     .rr-title {
-      font-size: 13px;
-      margin: 8px 0 0 0;
-      color: #1a3a52;
+      font-size: 12px;
+      margin: 6px 0 0 0;
+      color: #3b82f6;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     .contact-row {
       font-size: 10px;
       margin-top: 8px;
-      color: #4a4a4a;
+      color: #666666;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
     }
     .rr-contact {
       font-size: 10px;
       margin-top: 4px;
-      color: #4a4a4a;
+      color: #666666;
     }
     .rr-section {
       margin-bottom: 16px;
       page-break-inside: avoid;
     }
     .rr-section-title {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       margin: 0 0 10px 0;
-      padding: 4px 0 8px 0;
-      border-bottom: 1px solid #1a3a52;
-      color: #1a3a52;
+      padding: 0 0 6px 0;
+      border-bottom: 1px solid #e5e7eb;
+      color: #1a1a1a;
     }
     .rr-item {
       margin-bottom: 10px;
       page-break-inside: avoid;
     }
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 3px;
+    }
     .rr-item-title {
-      font-weight: 700;
-      font-size: 12px;
+      font-weight: 600;
+      font-size: 11px;
       margin: 0;
       color: #1a1a1a;
     }
     .rr-item-sub {
       font-size: 10px;
-      color: #4a4a4a;
+      color: #666666;
       margin: 2px 0;
     }
     .rr-muted {
       font-size: 10px;
-      color: #4a4a4a;
+      color: #999999;
+      font-weight: 600;
     }
     .date-range {
       font-size: 10px;
-      color: #4a4a4a;
-      font-weight: 600;
-      margin-top: 2px;
+      color: #999999;
+      font-weight: 500;
+      flex-shrink: 0;
     }
     .rr-bullets {
-      margin: 6px 0 0 18px;
+      margin: 4px 0 0 16px;
       padding: 0;
       font-size: 10px;
       list-style-type: disc;
     }
     .rr-bullets li {
-      margin: 3px 0;
-      color: #4a4a4a;
-      line-height: 1.5;
+      margin: 2px 0;
+      color: #666666;
+      line-height: 1.4;
     }
     .rr-tags {
       display: flex;
@@ -100,13 +113,13 @@
     }
     .rr-tag {
       display: inline-block;
-      background-color: #e8eef6;
-      color: #1a3a52;
-      padding: 5px 10px;
-      border-radius: 2px;
-      border: 1px solid #1a3a52;
+      background-color: #eff6ff;
+      color: #3b82f6;
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: 1px solid #dbeafe;
       font-weight: 500;
-      font-size: 10px;
+      font-size: 9px;
     }
     .two-col {
       display: grid;
@@ -125,18 +138,23 @@
 
     {{#if profile.summary}}
       <section class="rr-section">
-        <p style="font-size: 11px; margin: 0; color: #4a4a4a; line-height: 1.6; font-weight: 500;">{{profile.summary}}</p>
+        <h2 class="rr-section-title">Summary</h2>
+        <p style="font-size: 10px; margin: 0; color: #666666; line-height: 1.6;">{{profile.summary}}</p>
       </section>
     {{/if}}
 
     {{#if experience.length}}
       <section class="rr-section">
-        <h2 class="rr-section-title">Leadership Experience</h2>
+        <h2 class="rr-section-title">Experience</h2>
         {{#each experience}}
           <article class="rr-item">
-            <div class="rr-item-title">{{role}}</div>
-            <div class="rr-item-sub"><strong>{{company}}</strong>{{#if location}} | {{location}}{{/if}}</div>
-            <div class="date-range">{{dateRange}}</div>
+            <div class="item-header">
+              <div>
+                <div class="rr-item-title">{{role}}</div>
+                <div class="rr-item-sub"><strong>{{company}}</strong>{{#if location}} · {{location}}{{/if}}</div>
+              </div>
+              <div class="date-range">{{dateRange}}</div>
+            </div>
             {{#if highlights.length}}
               <ul class="rr-bullets">
                 {{#each highlights}}<li>{{this}}</li>{{/each}}
@@ -150,7 +168,7 @@
     <div class="two-col">
       {{#if skills.length}}
         <section class="rr-section">
-          <h2 class="rr-section-title">Core Skills</h2>
+          <h2 class="rr-section-title">Skills</h2>
           <div class="rr-tags">
             {{#each skills}}<span class="rr-tag">{{name}}</span>{{/each}}
           </div>
@@ -163,7 +181,7 @@
           {{#each education}}
             <article class="rr-item">
               <div class="rr-item-title">{{degree}}</div>
-              <div class="rr-item-sub">{{institution}}</div>
+              <div class="rr-item-sub"><strong>{{institution}}</strong></div>
               {{#if startDate}}<div class="rr-item-sub">{{startDate}}{{#if endDate}} - {{endDate}}{{/if}}</div>{{/if}}
             </article>
           {{/each}}
@@ -173,10 +191,15 @@
 
     {{#if projects.length}}
       <section class="rr-section">
-        <h2 class="rr-section-title">Key Projects</h2>
+        <h2 class="rr-section-title">Projects</h2>
         {{#each projects}}
           <article class="rr-item">
-            <div class="rr-item-title">{{name}}{{#if role}} - {{role}}{{/if}}</div>
+            <div class="item-header">
+              <div>
+                <div class="rr-item-title">{{name}}</div>
+                {{#if role}}<div class="rr-item-sub">{{role}}</div>{{/if}}
+              </div>
+            </div>
             {{#if summary}}<div class="rr-item-sub">{{summary}}</div>{{/if}}
           </article>
         {{/each}}
@@ -187,7 +210,7 @@
       <section class="rr-section">
         <h2 class="rr-section-title">Certifications</h2>
         {{#each certifications}}
-          <div class="rr-item-sub"><strong>{{name}}</strong>{{#if issuer}} | {{issuer}}{{/if}}{{#if year}} | {{year}}{{/if}}</div>
+          <div class="rr-item-sub"><strong>{{name}}</strong>{{#if issuer}} · {{issuer}}{{/if}}{{#if year}} · {{year}}{{/if}}</div>
         {{/each}}
       </section>
     {{/if}}

@@ -16,25 +16,25 @@ export interface TemplateConfig {
 }
 
 const TEMPLATE_METADATA: Record<TemplateId, { name: string; description: string }> = {
-  classic: {
-    name: "Classic",
-    description: "ATS-safe single-column design with clear hierarchy",
+  "ats-master": {
+    name: "ATS Master",
+    description: "Single-column layout optimized for ATS parsing and maximum readability",
   },
-  modern: {
-    name: "Modern",
-    description: "Balanced two-column professional design with strong scanning",
+  "professional": {
+    name: "Professional",
+    description: "Two-column balanced design with sidebar for skills and education",
   },
-  executive: {
+  "executive": {
     name: "Executive",
-    description: "Leadership-focused layout with premium spacing and bold sectioning",
+    description: "Leadership-focused layout with compact sections and premium spacing",
   },
-  minimal: {
-    name: "Minimal",
-    description: "Editorial and quiet layout that keeps focus on content",
+  "academic": {
+    name: "Academic",
+    description: "Education and research-focused with emphasis on publications and credentials",
   },
-  creative: {
-    name: "Creative",
-    description: "Distinctive but professional layout with tasteful visual contrast",
+  "modern-compact": {
+    name: "Modern Compact",
+    description: "Clean minimalist design with contemporary typography and breathing room",
   },
 };
 

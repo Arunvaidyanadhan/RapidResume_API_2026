@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{fullName}} - Resume</title>
+  {{> baseStyles}}
+  <style>
+    body {
+      background: #f8f9fa;
+      color: #1a1a1a;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .sheet {
+      background: #ffffff;
+      padding: 36px;
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .main-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .side-col {
+      display: flex;
+      flex-direction: column;
+      background: #f5f7fa;
+      padding: 16px;
+      border-radius: 6px;
+    }
+    .rr-header {
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 3px solid #0066cc;
+    }
+    .rr-name {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0;
+      color: #0066cc;
+    }
+    .rr-title {
+      font-size: 13px;
+      margin: 6px 0 0 0;
+      color: #0066cc;
+      font-weight: 600;
+    }
+    .contact-row {
+      font-size: 10px;
+      margin-top: 6px;
+      color: #505050;
+      line-height: 1.4;
+    }
+    .rr-contact {
+      font-size: 10px;
+      margin-top: 3px;
+      color: #505050;
+    }
+    .rr-section {
+      margin-bottom: 14px;
+      page-break-inside: avoid;
+    }
+    .rr-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 0 0 8px 0;
+      padding: 0 0 6px 0;
+      border-bottom: 2px solid #0066cc;
+      color: #0066cc;
+    }
+    .side-col .rr-section-title {
+      border-bottom: 1px solid #0066cc;
+      font-size: 10px;
+    }
+    .rr-item {
+      margin-bottom: 10px;
+      page-break-inside: avoid;
+    }
+    .rr-item-title {
+      font-weight: 600;
+      font-size: 11px;
+      margin: 0;
+      color: #1a1a1a;
+    }
+    .rr-item-sub {
+      font-size: 10px;
+      color: #505050;
+      margin: 2px 0;
+    }
+    .rr-muted {
+      font-size: 10px;
+      color: #505050;
+    }
+    .date-range {
+      font-size: 10px;
+      color: #505050;
+      margin-top: 2px;
+    }
+    .rr-bullets {
+      margin: 4px 0 0 18px;
+      padding: 0;
+      font-size: 10px;
+      list-style-type: disc;
+    }
+    .rr-bullets li {
+      margin: 2px 0;
+      color: #505050;
+      line-height: 1.4;
+    }
+    .rr-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      font-size: 10px;
+    }
+    .rr-tag {
+      display: inline-block;
+      background-color: #e8f0ff;
+      color: #0066cc;
+      padding: 4px 8px;
+      border-radius: 3px;
+      border: 1px solid #0066cc;
+      font-weight: 500;
+      font-size: 9px;
+    }
+    .side-col .rr-section {
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="main-col">
+      <header class="rr-header">
+        <h1 class="rr-name">{{fullName}}</h1>
+        {{#if profile.headline}}<p class="rr-title">{{profile.headline}}</p>{{/if}}
+        <div class="contact-row">{{contactLine}}</div>
+      </header>
+
+      {{#if profile.summary}}
+        <section class="rr-section">
+          <h2 class="rr-section-title">Professional Summary</h2>
+          <p style="font-size: 10px; margin: 0; color: #505050; line-height: 1.5;">{{profile.summary}}</p>
+        </section>
+      {{/if}}
+
+      {{#if experience.length}}
+        <section class="rr-section">
+          <h2 class="rr-section-title">Professional Experience</h2>
+          {{#each experience}}
+            <article class="rr-item">
+              <div class="rr-item-title">{{role}}</div>
+              <div class="rr-item-sub"><strong>{{company}}</strong>{{#if location}} | {{location}}{{/if}}</div>
+              <div class="date-range">{{dateRange}}</div>
+              {{#if highlights.length}}
+                <ul class="rr-bullets">
+                  {{#each highlights}}<li>{{this}}</li>{{/each}}
+                </ul>
+              {{/if}}
+            </article>
+          {{/each}}
+        </section>
+      {{/if}}
+
+      {{#if projects.length}}
+        <section class="rr-section">
+          <h2 class="rr-section-title">Projects</h2>
+          {{#each projects}}
+            <article class="rr-item">
+              <div class="rr-item-title">{{name}}{{#if role}} - {{role}}{{/if}}</div>
+              {{#if summary}}<div class="rr-item-sub">{{summary}}</div>{{/if}}
+              {{#if highlights.length}}
+                <ul class="rr-bullets">
+                  {{#each highlights}}<li>{{this}}</li>{{/each}}
+                </ul>
+              {{/if}}
+            </article>
+          {{/each}}
+        </section>
+      {{/if}}
+    </div>
+
+    <div class="side-col">
+      {{#if skills.length}}
+        <section class="rr-section">
+          <h2 class="rr-section-title">Skills</h2>
+          <div class="rr-tags">
+            {{#each skills}}<span class="rr-tag">{{name}}</span>{{/each}}
+          </div>
+        </section>
+      {{/if}}
+
+      {{#if education.length}}
+        <section class="rr-section">
+          <h2 class="rr-section-title">Education</h2>
+          {{#each education}}
+            <article class="rr-item">
+              <div class="rr-item-title">{{degree}}</div>
+              <div class="rr-item-sub"><strong>{{institution}}</strong></div>
+              {{#if location}}<div class="rr-item-sub">{{location}}</div>{{/if}}
+              {{#if startDate}}<div class="rr-item-sub">{{startDate}}{{#if endDate}} - {{endDate}}{{else}} - Present{{/if}}</div>{{/if}}
+            </article>
+          {{/each}}
+        </section>
+      {{/if}}
+
+      {{#if certifications.length}}
+        <section class="rr-section">
+          <h2 class="rr-section-title">Certifications</h2>
+          {{#each certifications}}
+            <div class="rr-item-sub"><strong>{{name}}</strong>{{#if issuer}}<br/>{{issuer}}{{/if}}</div>
+          {{/each}}
+        </section>
+      {{/if}}
+
+      {{#if languages.length}}
+        <section class="rr-section">
+          <h2 class="rr-section-title">Languages</h2>
+          {{#each languages}}
+            <div class="rr-item-sub"><strong>{{name}}</strong>{{#if proficiency}} - {{proficiency}}{{/if}}</div>
+          {{/each}}
+        </section>
+      {{/if}}
+    </div>
+  </div>
+</body>
+</html>
